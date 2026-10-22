@@ -1,0 +1,20 @@
+/* Solo para la versión demo */
+.demo-badge {
+	position: fixed; left: 16px; bottom: 16px; z-index: 90;
+	display: inline-flex; align-items: center; gap: 8px;
+	padding: 7px 8px 6px 12px; border-radius: 999px;
+	background: rgba(20, 21, 23, .92); color: #f2ecdf;
+	border: 1px solid rgba(255, 255, 255, .14);
+	font: 700 .66rem/1 "SB Mono", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase;
+	box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .6);
+	-webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.demo-badge__dot { width: 7px; height: 7px; border-radius: 50%; background: #12b76a; box-shadow: 0 0 8px #12b76a; }
+.demo-badge button { width: 22px; height: 22px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .1); color: inherit; font: 400 15px/1 sans-serif; cursor: pointer; }
+.demo-badge button:hover { background: #ffc61a; color: #141517; }
+@media (max-width: 600px) { .demo-badge { bottom: 22px; font-size: .58rem; } }
+
+/* Clientes de ejemplo (en vez de logos reales) */
+.tag__fallback--demo { display: grid; justify-items: center; gap: 12px; font-size: 1.35rem; color: var(--tinta); }
+.tag__fallback--demo .sb-icon { width: 48px; height: 48px; color: var(--tinta-2); transition: color .4s; }
+.tag:hover .tag__fallback--demo .sb-icon { color: var(--rojo); }
