@@ -4,6 +4,9 @@ Plantilla de ejemplo para mostrar a clientes de **Altiro Rutas**. Es una empresa
 **Buses Demo**, sin nombres ni datos reales: teléfono `+56 9 0000 0000`, correo `ventas@busesdemo.cl`
 y dirección `Calle Demo 123, Tu ciudad`.
 
+Los botones de WhatsApp de la demo (y la cotización del formulario) llegan al WhatsApp de Altiro, +56 9 5936 1307,
+para ver cuando alguien la prueba. En la página de cada cliente se cambia por su número (ver abajo).
+
 Qué trae:
 
 - **Portada** con tablero de salidas animado (42 destinos), boletos de servicios, recorrido de norte a sur,
@@ -45,8 +48,7 @@ assets/img/                Fotos de destinos e ilustraciones de buses
    | `Buses Demo` / `Buses%20Demo` | Nombre del cliente (la segunda forma va en los enlaces de WhatsApp: espacios como `%20`) |
    | `+56 9 0000 0000` | Teléfono como se muestra |
    | `tel:+56900000000` | Teléfono para llamar |
-   | `https://wa.me/?text=` | `https://wa.me/569XXXXXXXX?text=` (sin `+` ni espacios) |
-   | `"wa":""` | `"wa":"569XXXXXXXX"` (número al que llega la cotización por WhatsApp) |
+   | `56959361307` | WhatsApp del cliente, sin `+` ni espacios (`569XXXXXXXX`). Está en los enlaces `https://wa.me/…` y en `"wa":"…"`, el número al que llega la cotización |
    | `ventas@busesdemo.cl` | Correo del cliente |
    | `Calle Demo 123, Tu ciudad` | Dirección |
    | `tu ciudad` / `Tu ciudad` | Ciudad desde donde salen |
