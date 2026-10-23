@@ -1,4 +1,11 @@
 {
+  "rewrites": [
+    { "source": "/boleto", "destination": "/api/boleto" },
+    { "source": "/boleto.png", "destination": "/api/boleto-img" }
+  ],
+  "functions": {
+    "api/boleto-img.js": { "includeFiles": "api/_fuentes/**" }
+  },
   "headers": [
     {
       "source": "/(.*)",

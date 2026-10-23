@@ -16,9 +16,12 @@ Qué trae:
   (Mendoza, Sur de Chile y Bariloche, Portillo en invierno).
 - **Giras de estudio**, **Servicios**, **Flota** (4 buses de ejemplo), **Empresa**, **Clientes** y **Contacto**.
 - **Cotización** en forma de boleto: se envía ordenada por WhatsApp. En la demo, «Enviar solicitud» muestra un aviso.
+- **Boleto en imagen**: el mensaje de WhatsApp lleva un enlace al boleto (`/boleto`), y WhatsApp lo muestra como
+  imagen en el chat, con el recorrido, las fechas y los pasajeros (ver más abajo).
 
-Es una página estática: no necesita servidor ni instalar nada. Funciona en Vercel y abriendo `index.html`
-con doble clic (el mapa y WhatsApp necesitan internet).
+Es una página estática con una sola función en Vercel: la que dibuja el boleto en imagen. Funciona en Vercel y
+abriendo `index.html` con doble clic (el mapa y WhatsApp necesitan internet; con doble clic el mensaje llega sin
+el enlace al boleto).
 
 Las fotos de los buses son **ilustraciones de ejemplo** con el nombre «Buses Demo». Los logos de clientes son
 etiquetas genéricas (Minera, Club deportivo, Colegio, Empresa). Para cada cliente se reemplazan por sus fotos y logos.
@@ -36,6 +39,11 @@ assets/css/demo.css        Solo para la demo (etiqueta y clientes de ejemplo)
 assets/js/main.js          Tablero, menú, formulario y envío por WhatsApp
 assets/js/demo.js          Solo para la demo (aviso al enviar y etiqueta «Demo · Altiro Rutas»)
 assets/img/                Fotos de destinos e ilustraciones de buses
+api/_boleto.js             Dibujo del boleto en imagen y página /boleto (nombre de la empresa y colores arriba)
+api/boleto.js              /boleto: página con la vista previa para WhatsApp
+api/boleto-img.js          /boleto.png: la imagen del boleto (1200 × 630)
+api/_fuentes/              Fuentes del boleto en .ttf
+package.json               Librería para dibujar la imagen (@vercel/og); Vercel la instala sola
 ```
 
 ## Adaptarla a un cliente
@@ -61,8 +69,10 @@ assets/img/                Fotos de destinos e ilustraciones de buses
    `bus-ejecutivo.jpg`, `minibus.jpg`; se ven mejor en horizontal, 1600 × 1000).
 5. El mapa del pie de página está centrado en Chile: cambia `q=Chile` por la dirección del cliente en el `iframe`
    y en el enlace «Abrir en Maps».
-6. Para la versión final del cliente, borra las líneas de `assets/css/demo.css` y `assets/js/demo.js` en cada página,
-   y quita `noindex` de `vercel.json` y de las páginas para que Google la encuentre.
+6. En `api/_boleto.js`, ajusta `COLORES` a la marca del cliente (el nombre ya cambió con el paso 2).
+7. Para la versión final del cliente, borra las líneas de `assets/css/demo.css` y `assets/js/demo.js` en cada página,
+   y quita `noindex` de `vercel.json` y de las páginas para que Google la encuentre. En `robots.txt` deja
+   `Allow: /boleto` para que WhatsApp pueda mostrar la imagen.
 
 ## Publicar en Vercel
 
@@ -70,3 +80,19 @@ assets/img/                Fotos de destinos e ilustraciones de buses
 `vercel.json` ya pide a Google que no indexe la demo.
 
 Para ocultar la etiqueta «Demo · Altiro Rutas», pon `MOSTRAR_ETIQUETA = false` en `assets/js/demo.js`.
+
+## Boleto en imagen por WhatsApp
+
+Al tocar «Enviar por WhatsApp», el mensaje termina con una línea así:
+
+```
+🎫 Boleto: https://tu-pagina.vercel.app/boleto?n=Ana&t=Giras%20de%20estudio&o=Ovalle&d=Puc%C3%B3n&i=2026-11-12&r=2026-11-16&p=42
+```
+
+WhatsApp muestra la vista previa de ese enlace: la imagen del boleto con el recorrido, el pasajero, el tipo de viaje,
+las fechas y los pasajeros. Al abrir el enlace se ve el boleto en grande.
+
+- El enlace no lleva teléfono, correo ni comentarios: esos datos van solo en el texto del mensaje.
+- WhatsApp decide si muestra la vista previa; casi siempre aparece. Si no, el mensaje llega igual con todos los datos.
+- Para desactivarlo, cambia `"boleto":"\/boleto"` por `"boleto":""` en las páginas.
+- Para probar cómo se ve: abre `https://tu-pagina.vercel.app/boleto.png?o=Ovalle&d=Puc%C3%B3n&p=42`.

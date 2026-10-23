@@ -273,6 +273,13 @@
 					['Comentarios', val('mensaje')]
 				];
 				map.forEach(function (m) { if (m[1]) { lines.push('• ' + m[0] + ': ' + m[1]); } });
+				// Enlace al boleto (/boleto): en WhatsApp se ve como imagen. Solo con la página publicada en Vercel.
+				if (SBC.boleto && /^https?:$/.test(window.location.protocol)) {
+					var q = [['n', 'nombre'], ['t', 'tipo'], ['o', 'origen'], ['d', 'destino'], ['i', 'ida'], ['r', 'vuelta'], ['p', 'pasajeros']]
+						.filter(function (k) { return val(k[1]); })
+						.map(function (k) { return k[0] + '=' + encodeURIComponent(val(k[1])); });
+					lines.push('', '🎫 Boleto: ' + window.location.origin + SBC.boleto + '?' + q.join('&'));
+				}
 				var url = 'https://wa.me/' + (SBC.wa || '') + '?text=' + encodeURIComponent(lines.join('\n'));
 				// Un enlace real en vez de window.open: así también funciona donde se bloquean las ventanas emergentes.
 				var a = document.createElement('a');
